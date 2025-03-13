@@ -184,7 +184,7 @@ class Flash(FlashController.FlashControllerBase):
 		self._command()
 		self._wait_while_busy()
 		start_timestamp = time()
-		SAMV7_GETD_COMPLETE = 0x00040000
+		SAMV7_GETD_COMPLETE = 0x00004000
 		ret = []
 		while True:
 			if time() - start_timestamp >= .5:
