@@ -184,12 +184,13 @@ class Flash(FlashController.FlashControllerBase):
 		self._command()
 		self._wait_while_busy()
 		start_timestamp = time()
+		SAMV7_GETD_COMPLETE = 0x00040000
 		ret = []
 		while True:
 			if time() - start_timestamp >= .5:
 				raise Exception('Get Flash Descriptor: timeout')
 			buff = self.samba.read_word(self.regs_base_address + self.FRR_OFFSET)
-			if not buff:
+			if not buff or buff == SAMV7_GETD_COMPLETE:
 				return ret
 			ret.append(buff)
 		return ret
